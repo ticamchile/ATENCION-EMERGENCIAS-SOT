@@ -1,0 +1,320 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="#">Configuración</a></li>
+  <li class="active">Calendario de turnos</li>
+</ol>
+{% endblock %}
+
+{% block javascript -%}
+  {{ parent() }}
+  <script src="//momentjs.com/downloads/moment-with-locales.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.js"></script>
+{% endblock %}
+
+{% block stylesheets -%}
+  {{ parent() }}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.print.css" media="print">
+{% endblock %}
+
+{% block body -%}
+  <div id="calendar"></div>
+
+  <br/>
+  <p class="text-right">
+  <label class="checkbox-inline">
+    <input type="checkbox" checked="checked" id="DOMICILIO" value="DOMICILIO"> <span style="color: {% trans %}COLOR_DOMICILIO{% endtrans %}">CUADRILLA DOMICILIO</span>
+  </label>
+
+  <label class="checkbox-inline">
+    <input type="checkbox" checked="checked" id="LIBRE_DOMICILIO" value="LIBRE_DOMICILIO"> <span style="color: {% trans %}COLOR_LIBRE{% endtrans %}">DIA LIBRE DOMICILIO</span>
+  </label>    
+
+  <label class="checkbox-inline">
+    <input type="checkbox" checked="checked" id="LICENCIA_MEDICA_DOMICILIO" value="LICENCIA_MEDICA_DOMICILIO"> <span style="color: {% trans %}COLOR_LICENCIA_MEDICA{% endtrans %}">LICENCIA MÉDICA DOMICILIO</span>
+  </label>      
+
+  <label class="checkbox-inline">
+    <input type="checkbox" checked="checked" id="RED" value="RED"> <span style="color: {% trans %}COLOR_RED{% endtrans %}">CUADRILLA RED</span>
+  </label>
+    
+  <label class="checkbox-inline">
+    <input type="checkbox" checked="checked" id="LIBRE_RED" value="LIBRE_RED"> <span style="color: {% trans %}COLOR_LIBRE{% endtrans %}">DIA LIBRE RED</span>
+  </label>    
+
+  <label class="checkbox-inline">
+    <input type="checkbox" checked="checked" id="LICENCIA_MEDICA_RED" value="LICENCIA_MEDICA_RED"> <span style="color: {% trans %}COLOR_LICENCIA_MEDICA{% endtrans %}">LICENCIA MÉDICA RED</span>
+  </label>    
+
+  &nbsp;&nbsp;
+      <button id="print" type="button" class="btn btn-default btn-xs">
+        <span class="glyphicon glyphicon-print"></span> Imprimir
+      </button>
+
+    
+  </p>
+
+  <div style="display:none; " id="calendar_events"></div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}  
+
+{% block js -%}
+  {{ parent() }}
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      height: 550,
+      header: {
+        left: 'prev, next today',
+        center: 'title',
+        right: 'month, basicWeek, basicDay'
+      },
+      eventAfterAllRender: function(view) {
+        
+      },
+      titleFormat: {
+        month: 'MMM YYYY', // September 2009
+        week: "D MMM YYYY", // Sep 13 2009
+        day: 'D MMM YYYY'  // September 2009
+      },
+      buttonText : {
+        today:    'Hoy',
+        month:    'Mes',
+        week:     'Semana',
+        day:      'Día'
+      },
+      dayClick: function(date, jsEvent, view) {
+         window.location.href = "/roles_de_turno/new/" + date.format() + ".html";
+      },
+      eventMouseover: function(event, jsEvent, view ){
+        
+      },
+      eventMouseout: function(event, jsEvent, view ){
+        
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+          //Abrir calEvent.url in LightBox:
+          $("#calendar_events").html('<a href="' + calEvent.url + '" data-toggle="modal" data-target="#modal" id="ajax-cal-' + calEvent.id + '">Show ' + calEvent.id + '</a>');
+          $('#ajax-cal-' + calEvent.id).click();
+          return false;
+      },
+      eventDrop: function(event, delta, revertFunc,ui,view) {
+        //Ajax Call:
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "{{ path('roles_de_turno_date_clone') }}",
+          data: { id: event.id, date: event.start.format() },
+          success: function(data) {
+             refreshMyEvents();
+          }
+        });
+      },
+    viewRender: function (view, element) {
+      if (view.name == 'basicWeek') {
+        $('#print').show();
+        $('#print').bind('click', function () {
+           window.open("/roles_de_turno/print/" + view.start.format() + "/" + view.end.format() + "/" + ($('#DOMICILIO').is(':checked') ? "1" : "0" ) + "-" + ($('#LIBRE_DOMICILIO').is(':checked') ? "1" : "0" ) + "-" + ($('#LICENCIA_MEDICA_DOMICILIO').is(':checked') ? "1" : "0" ) + "-" + ($('#RED').is(':checked') ? "1" : "0" ) + "-" + ($('#LIBRE_RED').is(':checked') ? "1" : "0" ) + "-" + ($('#LICENCIA_MEDICA_RED').is(':checked') ? "1" : "0" ) + "/"  + "print.html","_newtab");
+        });
+      } else {
+        $('#print').hide();
+      }
+    },
+	  lang: 'es',
+	  editable: true,
+	  startEditable: true,
+	  durationEditable: false,
+	  eventSources: [],
+        timeFormat: 'HH:mm',
+        displayEventEnd: {
+          month: true,
+          agendaWeek: true,
+          'default': true,
+        },
+    firstDay: 1,
+    slotEventOverlap: false,    
+    });
+
+    refreshMyEvents();
+
+  });
+
+  function refreshMyEvents() {
+
+    //ELIMINO TODOS:
+    $('#calendar').fullCalendar('removeEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'DOMICILIO' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          });  
+
+    //ELIMINO TODOS:
+    $('#calendar').fullCalendar('removeEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'RED' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          });   
+
+    //ELIMINO TODOS:
+    $('#calendar').fullCalendar('removeEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'LIBRE_RED' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          });                     
+
+    //ELIMINO TODOS:
+    $('#calendar').fullCalendar('removeEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'LIBRE_DOMICILIO' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          });                     
+
+    //ELIMINO TODOS:
+    $('#calendar').fullCalendar('removeEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'LICENCIA_MEDICA_RED' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          });   
+
+    //ELIMINO TODOS:
+    $('#calendar').fullCalendar('removeEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'LICENCIA_MEDICA_DOMICILIO' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          });               
+
+    //AGREGO
+
+    if ($('#DOMICILIO').is(':checked')) {
+        $('#calendar').fullCalendar('addEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'DOMICILIO' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          }); 
+    }
+
+    if ($('#RED').is(':checked')) {
+        $('#calendar').fullCalendar('addEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'RED' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          }); 
+    }
+
+    if ($('#LIBRE_RED').is(':checked')) {
+        $('#calendar').fullCalendar('addEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'LIBRE_RED' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          }); 
+    }
+
+    if ($('#LIBRE_DOMICILIO').is(':checked')) {
+        $('#calendar').fullCalendar('addEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'LIBRE_DOMICILIO' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          }); 
+    }
+
+
+    if ($('#LICENCIA_MEDICA_DOMICILIO').is(':checked')) {
+        $('#calendar').fullCalendar('addEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'LICENCIA_MEDICA_DOMICILIO' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          }); 
+    }
+
+    if ($('#LICENCIA_MEDICA_RED').is(':checked')) {
+        $('#calendar').fullCalendar('addEventSource', {
+            url: '{{ path('roles_de_turno_json', { turno_tipo: 'LICENCIA_MEDICA_RED' }) }}',
+            type: 'GET',
+            data: {
+ 
+            },
+            error: function() {
+                alert('there was an error while fetching events!');
+            },
+          }); 
+    }    
+
+
+  }
+
+  $('#DOMICILIO').bind('change', function() { refreshMyEvents(); });
+  $('#RED').bind('change', function() { refreshMyEvents(); });
+  $('#LIBRE_RED').bind('change', function() { refreshMyEvents(); });
+  $('#LIBRE_DOMICILIO').bind('change', function() { refreshMyEvents(); });
+  $('#LICENCIA_MEDICA_RED').bind('change', function() { refreshMyEvents(); });
+  $('#LICENCIA_MEDICA_DOMICILIO').bind('change', function() { refreshMyEvents(); });
+
+{% endblock %}

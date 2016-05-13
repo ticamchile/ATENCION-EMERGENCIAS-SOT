@@ -1,0 +1,58 @@
+{% extends '::base.html.twig' %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="{{ path('turnos_index') }}">Turno</a></li>
+  <li class="active">Ver</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+    <h3>Ver Turno</h3>
+
+    <table class="records_properties table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ entity.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <p class="text-left">
+    <a href="{{ path('turnos_edit', { 'id': entity.id }) }}">
+      <button type="button" class="btn btn-default btn-xs">
+        <span class="glyphicon glyphicon-edit"></span> Editar
+      </button>
+    </a>
+
+        <a href="{{ path('turnos_delete', { 'id': entity.id, 'token': csrf.generateCsrfToken('entity' ~ entity.id) }) }}" class="confirm">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-trash"></span> Borrar
+                    </button>
+                  </a>
+                  
+</p>
+
+
+    <p class="text-left">
+    <a href="{{ path('turnos_index') }}">
+      <button type="button" class="btn btn-default btn-xs">
+        <span class="glyphicon glyphicon-th-list"></span> Volver
+      </button>
+    </a>
+    </p>{% endblock %}

@@ -1,0 +1,124 @@
+<table class="calendar" style="width: 100% !important">
+  <tr>
+    <th><img alt="logo" style="height:35px; margin-top:7px; margin-right: 13px;" src="{{ asset('images/logo.jpg') }}"/></th>
+    <th colspan="7"><h3 class="text-center">ROL DE TURNO {{ turno.dia | replace({'_': ' ' }) }}</h3><h4 class="text-center">{{ fecha_desde | date('d-m-Y') }} al {{ fecha_hasta | date('d-m-Y') }}</h4></th>
+  </tr>
+  <tr>
+    <td></td>
+    <td style="width: 12% !important;"><h4 class="text-center">LUNES</h4></td>
+    <td style="width: 12% !important;"><h4 class="text-center">MARTES</h4></td>
+    <td style="width: 12% !important;"><h4 class="text-center">MIÉRC.</h4></td>
+    <td style="width: 12% !important;"><h4 class="text-center">JUEVES</h4></td>
+    <td style="width: 12% !important;"><h4 class="text-center">VIERNES</h4></td>
+    <td style="width: 12% !important;"><h4 class="text-center">SÁBADO</h4></td>
+    <td style="width: 12% !important;"><h4 class="text-center">DOMINGO</h4></td>
+  </tr>
+
+{% for key,periodo in turno.periodos %}
+  <tr>
+    <td>{{ periodo.nombre | raw }}<br/>{{ periodo.inicio | date('H:i') }}/{{ periodo.fin | date('H:i') }}</td>
+    <td id="{{ periodo.id }}-{{ fecha_desde|date_modify("0 day") |date("Y-m-d") }}"></td>
+    <td id="{{ periodo.id }}-{{ fecha_desde|date_modify("+1 day")|date("Y-m-d") }}"></td>
+    <td id="{{ periodo.id }}-{{ fecha_desde|date_modify("+2 day")|date("Y-m-d") }}"></td>
+    <td id="{{ periodo.id }}-{{ fecha_desde|date_modify("+3 day")|date("Y-m-d") }}"></td>
+    <td id="{{ periodo.id }}-{{ fecha_desde|date_modify("+4 day")|date("Y-m-d") }}"></td>
+    <td id="{{ periodo.id }}-{{ fecha_desde|date_modify("+5 day")|date("Y-m-d") }}"></td>
+    <td id="{{ periodo.id }}-{{ fecha_desde|date_modify("+6 day")|date("Y-m-d") }}"></td>
+  </tr>
+{% endfor %}
+</table> 
+<br/><br/><br/>
+
+{% for key,periodo in turno.periodos %}
+<script type="text/javascript">
+  $.ajax({
+    dataType: 'json',
+    url: '{{ path('roles_de_turno_print_json', { turno_id: periodo.id, fecha: fecha_desde |date_modify("0 day")|date("Y-m-d") }) }}',
+    success: function(data) {
+       //Es una coleccion:
+       jQuery.each( data, function( i, val ) {
+         $('#{{ periodo.id }}-{{ fecha_desde |date_modify("0 day")|date("Y-m-d") }}').append('<p><small>' + val.title + '</small></p>');
+       });
+    },
+  });
+
+  $.ajax({
+    dataType: 'json',
+    url: '{{ path('roles_de_turno_print_json', { turno_id: periodo.id, fecha: fecha_desde |date_modify("+1 day")|date("Y-m-d") }) }}',
+    success: function(data) {
+       //Es una coleccion:
+       jQuery.each( data, function( i, val ) {
+         $('#{{ periodo.id }}-{{ fecha_desde |date_modify("+1 day")|date("Y-m-d") }}').append('<p><small>' + val.title + '</small></p>');
+       });
+    },
+  });
+
+  $.ajax({
+    dataType: 'json',
+    url: '{{ path('roles_de_turno_print_json', { turno_id: periodo.id, periodo_id: periodo.id, fecha: fecha_desde |date_modify("+2 day")|date("Y-m-d") }) }}',
+    success: function(data) {
+       //Es una coleccion:
+       jQuery.each( data, function( i, val ) {
+         $('#{{ periodo.id }}-{{ fecha_desde |date_modify("+2 day")|date("Y-m-d") }}').append('<p><small>' + val.title + '</small></p>');
+       });
+    },
+  });  
+
+  $.ajax({
+    dataType: 'json',
+    url: '{{ path('roles_de_turno_print_json', { turno_id: periodo.id, fecha: fecha_desde |date_modify("+3 day")|date("Y-m-d") }) }}',
+    success: function(data) {
+       //Es una coleccion:
+       jQuery.each( data, function( i, val ) {
+         $('#{{ periodo.id }}-{{ fecha_desde |date_modify("+3 day")|date("Y-m-d") }}').append('<p><small>' + val.title + '</small></p>');
+       });
+    },
+  });
+
+  $.ajax({
+    dataType: 'json',
+    url: '{{ path('roles_de_turno_print_json', { turno_id: periodo.id, fecha: fecha_desde |date_modify("+4 day")|date("Y-m-d") }) }}',
+    success: function(data) {
+       //Es una coleccion:
+       jQuery.each( data, function( i, val ) {
+         $('#{{ periodo.id }}-{{ fecha_desde |date_modify("+4 day")|date("Y-m-d") }}').append('<p><small>' + val.title + '</small></p>');
+       });
+    },
+  });
+
+  $.ajax({
+    dataType: 'json',
+    url: '{{ path('roles_de_turno_print_json', { turno_id: periodo.id, fecha: fecha_desde |date_modify("+5 day")|date("Y-m-d") }) }}',
+    success: function(data) {
+       //Es una coleccion:
+       jQuery.each( data, function( i, val ) {
+         $('#{{ periodo.id }}-{{ fecha_desde |date_modify("+5 day")|date("Y-m-d") }}').append('<p><small>' + val.title + '</small></p>');
+       });
+    },
+  });   
+
+  $.ajax({
+    dataType: 'json',
+    url: '{{ path('roles_de_turno_print_json', { turno_id: periodo.id, fecha: fecha_desde |date_modify("+6 day")|date("Y-m-d") }) }}',
+    success: function(data) {
+       //Es una coleccion:
+       jQuery.each( data, function( i, val ) {
+         $('#{{ periodo.id }}-{{ fecha_desde |date_modify("+6 day")|date("Y-m-d") }}').append('<p><small>' + val.title + '</small></p>');
+       });
+    },
+  });    
+
+  $.ajax({
+    dataType: 'json',
+    url: '{{ path('roles_de_turno_print_json', { turno_id: periodo.id, fecha: fecha_desde |date_modify("+7 day")|date("Y-m-d") }) }}',
+    success: function(data) {
+       //Es una coleccion:
+       jQuery.each( data, function( i, val ) {
+         $('#{{ periodo.id }}-{{ fecha_desde |date_modify("+7 day")|date("Y-m-d") }}').append('<p><small>' + val.title + '</small></p>');
+       });
+    },
+  });           
+</script>
+
+{% endfor %}
+

@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="#">Creación & asignación</a></li>
+  <li class="active">Ver eventos importados</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+  {% include 'BcTicCamSotBundle:Evento:index.html.twig' %}
+{% endblock %}  
+
+{% block js %}
+  {% include 'BcTicCamSotBundle:Evento:index.js.twig' %}
+
+  $(function() {
+
+    $.datepicker.regional['es'] = {
+      closeText: 'Cerrar',
+      prevText: '<Ant',
+      nextText: 'Sig>',
+      currentText: 'Hoy',
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+      dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+      dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+      weekHeader: 'Sm',
+      dateFormat: 'dd-mm-yy',
+      firstDay: 1,
+      isRTL: false,
+      showMonthAfterYear: false,
+      yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+
+    $( "#bctic_camsotbundle_evento_fechaDeInicio" ).datepicker({ dateFormat: "dd-mm-yy" });
+  });
+{% endblock %}

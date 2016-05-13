@@ -1,0 +1,54 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+  <h4 class="modal-title" id="myModalLabel">Ver Rol de Turno</h4>
+</div>
+
+<div class="modal-body">
+  <table class="records_properties table">
+    <tbody>
+      <tr>
+        <th>Turno</th>
+        <td>{{ entity.turno }}</td>
+      </tr>
+      <tr>
+        <th>Fecha</th>
+        <td>{{ entity.fecha|date('d-m-Y') }}</td>
+      </tr>
+      <tr>
+        <th>Roles</th>
+        <td>
+          <table class="records_properties table">
+            <tbody>
+              {% for rol in entity.rolesEnTurno %}
+                <tr>
+                  <td>{{ rol.rol }}</td>
+                  <td>{{ rol.registro }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>    
+        </td>
+      </tr>      
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-footer">
+  <a href="{{ path('roles_de_turno_edit', { 'id': entity.id }) }}">
+    <button type="button" class="btn btn-default btn-xs">
+      <span class="glyphicon glyphicon-edit"></span> Editar
+    </button>
+  </a>
+  <a href="{{ path('roles_de_turno_delete', { 'id': entity.id, 'token': csrf.generateCsrfToken('entity' ~ entity.id) }) }}" class="confirm">
+            <button type="button" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-trash"></span> Borrar
+            </button>
+          </a>
+  <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">
+        <span class="glyphicon glyphicon-th-list"></span> Volver
+      </button>
+</div>
+
+<script type="text/javascript">
+  activateConfirm();
+</script>

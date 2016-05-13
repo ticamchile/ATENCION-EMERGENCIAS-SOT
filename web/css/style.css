@@ -1,0 +1,37 @@
+td.fc-day:hover {
+  cursor:pointer;
+}
+
+div.tab-content table tr th {
+  width: 20%;
+}
+
+div.tab-content table tr th, div.tab-content table tr td {
+  padding:5px;
+}
+
+div.tab-content table tr th {
+  text-align: right;	
+}
+
+div.tab-content table tr th::after {
+  content: ":";
+}
+
+div.tab-content table {
+  border-bottom:1px solid #dddddd !important;  	
+}
+
+div.tab-content {
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd; 
+  border-bottom: 1px solid #dddddd;
+}
+
+div#content {
+  width:99%;
+}
+
+th.actions {
+	width: 30% !important;
+}

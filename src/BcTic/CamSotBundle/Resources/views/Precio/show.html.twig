@@ -1,0 +1,90 @@
+{% extends '::base.html.twig' %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="{{ path('precios_index') }}">Precio</a></li>
+  <li class="active">Ver</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+    <h3>Ver Precio</h3>
+
+    <table class="records_properties table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ entity.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Móviles</th>
+                <td>{{ entity.moviles }}</td>
+            </tr>   
+            <tr>
+                <th>Tipo móviles</th>
+                <td>{{ entity.tipoMoviles }}</td>
+            </tr>   
+
+            <tr>
+                <th>Columnas</th>
+                <td>
+                  <ol>
+                  {% for columna in entity.columnas %}
+                    <li>{{-columna-}}</li>
+                  {% endfor %}
+                  </ol>
+                </td>
+            </tr>            
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status | trans }}</td>
+            </tr>
+            <tr>
+                <th>Fecha desde</th>
+                <td>{{ entity.fechadesde|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th>Fecha hasta</th>
+                <td>{{ entity.fechahasta|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <th>Notas</th>
+                <td>{{ entity.notes | raw }}</td>
+            </tr>            
+        </tbody>
+    </table>
+
+    <p class="text-left">
+
+                  <a href="{{ path('precio_archivo_download', { 'id': entity.id }) }}">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-download"></span> Archivo
+                    </button>
+                  </a>
+
+                  <a href="{{ path('precios_delete', { 'id': entity.id, 'token': csrf.generateCsrfToken('entity' ~ entity.id) }) }}" class="confirm">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-trash"></span> Borrar
+                    </button>
+                  </a>
+
+
+    </p>
+
+    <p class="text-left">
+    <a href="{{ path('precios_index') }}">
+      <button type="button" class="btn btn-default btn-xs">
+        <span class="glyphicon glyphicon-th-list"></span> Volver
+      </button>
+    </a>
+    </p>{% endblock %}

@@ -1,0 +1,24 @@
+        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_show', { 'id': entity.id }) }}" }}">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-zoom-in"></span> Ver
+                    </button>
+                  </a>
+
+        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_edit', { 'id': entity.id }) }}" }}">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-edit"></span> Editar
+                    </button>
+                  </a>
+
+   
+        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_delete', { 'id': entity.id, 'token': csrf.generateCsrfToken('entity' ~ entity.id) }) }}" }}" class="confirm">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-trash"></span> Borrar
+                    </button>
+                  </a>
+
+
+                
+               
+
+   

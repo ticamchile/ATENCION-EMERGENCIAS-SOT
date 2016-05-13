@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Leonardo Barrientos C. BC TIC Chile">
+    <title>{% block title %}Gestión de Eventos & liquidación y Rol de turnos – Servicio de Emergencias SOT CAM.{% endblock %}</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/calendar.css">
+    {% endblock %}
+    {% block javascript %}
+    <script src="/js/jquery-1.11.0.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+  </head>
+  <body>
+    <div id="header"></div>
+    <div id="content" class="container pdf" style="width: 99%;">
+    {% block body %}{% endblock %}
+    </div>
+    <br/>
+    <div class="footer text-center" style="display: none;">
+
+      <p>&copy; Gestión de Eventos & liquidación y Rol de turnos – Servicio de Emergencias SOT CAM.</p>
+
+    </div>
+      {% block js %}{% endblock %}
+  </body>
+</html>

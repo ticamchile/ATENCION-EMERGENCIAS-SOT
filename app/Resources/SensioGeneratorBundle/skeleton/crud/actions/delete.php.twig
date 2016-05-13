@@ -1,0 +1,46 @@
+    /**
+{% block phpdoc_method_header %}
+     * Deletes a {{ entity }} entity.
+{% endblock phpdoc_method_header %}
+     *
+{% block phpdoc_method_annotations %}
+{% if 'annotation' == format %}
+     * @Route("/delete/{id}/{token}", name="{{ route_name_prefix }}_delete")
+     * @Method("GET")
+{% endif %}
+{% endblock phpdoc_method_annotations %}
+     */
+{% block method_definition %}
+    public function deleteAction(Request $request, $id, $token)
+{% endblock method_definition %}
+    {
+{% block method_body %}
+
+        $csrf = $this->get('form.csrf_provider');
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('{{ bundle }}:{{ entity }}')->find($id);
+
+        if (!$entity) {
+              throw $this->createNotFoundException('Unable to find {{ entity }} entity.');
+        }
+
+        if ($csrf->isCsrfTokenValid('entity'.$entity->getId(), $token)) {
+            $em->remove($entity);
+            $em->flush();
+
+             $this->get('session')->getFlashBag()->add(
+              'notice',
+              'Los datos se borraron correctamente.'
+            );
+        }
+
+{% endblock method_body %}
+
+{% block method_return %}
+        return $this->redirect($this->generateUrl('{{ route_name_prefix }}_index'));
+{% endblock method_return %}
+    }
+
+{% block form %}
+{% endblock form %}

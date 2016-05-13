@@ -1,0 +1,169 @@
+{% extends '::base.html.twig' %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="#">Creación & asignación</a></li>
+  <li><a href="{{ path('eventos_new_index') }}">Ver eventos importados</a></li>
+  <li class="active">Ver {{ entity.nombre }}</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+    <h3>Ver Evento {{ entity.nombre }}</h3>
+
+    <!-- TABS -->  
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active"><a href="#main" role="tab" data-toggle="tab">Datos</a></li>
+      <li><a href="#evento" role="tab" data-toggle="tab">Detalle</a></li>
+      <li><a href="#causa" role="tab" data-toggle="tab">Causa/Responsable</a></li>
+      <li><a href="#cuadrilla" role="tab" data-toggle="tab">Cuadrilla</a></li>
+      {% if entity.historiales | length > 0 %}
+      <li><a href="#historial_de_evento" role="tab" data-toggle="tab">No conformidades</a></li>
+      {% endif %}
+    </ul>
+
+<div class="tab-content">
+
+  <div class="tab-pane active" id="main">
+    <div class="container" style="width:98%; padding-top:20px;">
+    <table class="records_properties table table-condensed">
+      <tbody>
+        <tr>
+          <th>Evento</th>
+          <td>{{ entity.nombre }}</td>
+        </tr>
+        <tr>
+          <th>Archivos</th>
+          <td>
+            <ul>
+            {% for archivo in entity.archivosDeEventos %}
+              <li><a href="{{ path('archivos_de_evento_download', { 'id': archivo.archivoDeEvento.id }) }}">{{ archivo.archivoDeEvento.tipo }} - {{ archivo.archivoDeEvento }}</a></li>
+            {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>Fecha de importación</th>
+          <td>{{ entity.createdAt | date('d-m-Y H:i') }}</td>
+        </tr>
+        <tr>
+          <th>Estado SOT</th>
+          <td>{{ entity.status | trans }}</td>
+        </tr>
+        <tr>
+          <th>Observación</th>
+          <td>{{ entity.descripcion }}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="evento">
+    <div class="container" style="width:98%; padding-top:20px;">
+    <table class="records_properties table table-condensed">
+      <tbody>
+        {% for key, propiedad in entity.propiedadesDeEvento %}
+        <tr>
+          <th>{% set label = 'propiedad_de_evento_' ~ propiedad.nemo %} {{ label | trans }}</th>
+          <td>{{ propiedad.valor }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>  
+    </div>
+  </div>  
+
+  <div class="tab-pane" id="causa">
+    <div class="container" style="width:98%; padding-top:20px;">
+    <table class="records_properties table table-condensed">
+      <tbody>
+        {% for propiedad in entity.causasDeEvento %}
+        <tr>
+          <th>{% set label = 'causas_de_evento_' ~ propiedad.nemo %} {{ label | trans }}</th>
+          <td>{{ propiedad.valor }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>  
+    {% if entity.causasDeEvento | length == 0 %}
+      <div class="alert alert-warning" role="alert">No hay información de causa/responsable.</div>
+      <br/>
+    {% endif %}
+    </div>
+  </div> 
+
+  <div class="tab-pane" id="cuadrilla">
+    <div class="container" style="width:98%; padding-top:20px;">
+    <table class="records_properties table table-condensed">
+      <tbody>
+        {% set i_movil = 1 %}
+        {% for propiedad in entity.cuadrillasDeEvento %}
+        <tr>
+          <th>{% set label = 'cuadrilla_de_evento_3' %} {{ label | trans }} #{{ i_movil }}</th>
+          <td>
+            <a href="{{ path('movil_show', { valor: propiedad.valor } ) }}">{{ propiedad.valor }}</a>
+          </td>
+        </tr>
+        <tr>  
+          <td></td>
+          <td>
+             <table class="records_properties table table-condensed">
+               {% for propiedadCuadrillaDeEvento in propiedad.propiedadesDeCuadrillaDeEvento %}
+               <tr>
+                 <th>{% set label = 'cuadrilla_de_evento_' ~ propiedadCuadrillaDeEvento.nemo %} {{ label | trans }}</th>
+                 <td>{{ propiedadCuadrillaDeEvento.valor }}</td>
+               </tr>
+               {% endfor %}
+             </table>
+          </td>
+        </tr>
+        {% set i_movil = i_movil + 1 %}
+        {% endfor %}
+      </tbody>
+    </table>  
+    {% if entity.cuadrillasDeEvento | length == 0 %}
+      <div class="alert alert-warning" role="alert">No hay información de cuadrilla.</div>
+      <br/>
+    {% endif %}
+    </div>
+  </div>  
+
+  {% if entity.historiales | length > 0 %}
+  <div class="tab-pane" id="historial_de_evento">
+    <div class="container" style="width:98%; padding-top:20px;">
+    <table class="records_properties table table-condensed">
+      <tbody>
+        {% for historial in entity.historiales %}
+        <tr class="alert alert-danger" role="alert">
+          <th>NO CONFORMIDAD #{{ historial. id }}</th>
+          <td>{{ historial.descripcion | trans }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>  
+    </div>
+  </div>
+  {% endif %}    
+
+
+</div>
+
+<hr/>
+
+    
+
+        <p class="text-left">
+
+                  
+        </p>
+
+    <p class="text-left">
+    <a href="{{ path('eventos_new_index') }}">
+      <button type="button" class="btn btn-default btn-xs">
+        <span class="glyphicon glyphicon-th-list"></span> Volver
+      </button>
+    </a>
+    </p>{% endblock %}

@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="#">Cierre</a></li>
+  <li class="active">Ver eventos cerrados</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+  {% include 'BcTicCamSotBundle:Evento:index.html.twig' %}
+{% endblock %}
+
+{% block js %}
+  {% include 'BcTicCamSotBundle:Evento:index.js.twig' %}
+{% endblock %}

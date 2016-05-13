@@ -1,0 +1,82 @@
+{% block extends %}
+{{ "{% extends '::base.html.twig' %}" }}
+{% endblock extends %}
+
+{{ "{% block breadcrumb %}" }}
+<ol class="breadcrumb">
+  <li><a href="{{ "{{ path('default_index') }}" }}">Inicio</a></li>
+  <li class="active">{{ entity }}</li>
+</ol>
+{{ "{% endblock %}" }}
+
+{{ "{% block body -%}" }}
+
+   {{ '{% if entities | length > 0 %}' }}
+    <table class="records_list table table-striped">
+        <thead>
+            <tr>
+            {%- for field, metadata in fields %}
+
+                <th>{{ field|capitalize }}</th>
+
+            {%- endfor %}
+
+                <th class="actions">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{ '{% for entity in entities %}' }}
+            <tr>
+
+        {%- for field, metadata in fields %}
+            {%- if loop.first and ('show' in actions) %}
+
+                <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+            {%- elseif metadata.type in ['date', 'datetime'] %}
+
+                <td>{{ '{% if entity.' ~ field|replace({'_': ''}) ~ ' %}{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}{% endif %}' }}</td>
+
+            {%- else %}
+
+                <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>
+
+            {%- endif %}
+
+            {%- if loop.last %}
+
+                <td>
+                    {%- include "crud/views/others/actions.html.twig.twig" %}
+                </td>
+
+            {%- endif %}
+        {%- endfor %}
+
+            </tr>
+        {{ '{% endfor %}' }}
+        </tbody>
+    </table>
+
+    <div class="container" style="text-align: center; width:50%;">
+    <ul class="pagination">
+      <li {{ '{% if page < 2 %}class="disabled"{% endif %}'}}><a href="{{ '{% if page < 2 %}javascript:void();{% else %}{{ path_previous }}{% endif %}' }}">Anterior</a></li>
+      <li class="active"><a href="javascript:void()">{{ '{{ page }}' }}</a><li>
+      <li {{ '{% if entities | length < 10 %}class="disabled"{% endif %}' }}><a href="{{ '{% if entities | length < 10 %}javascript:void();{% else %}{{ path_next }}{% endif %}' }}">Siguiente</a></li>
+    </ul>
+    </div>
+
+    {{ '{% else %}' }}
+      <h4>No se encontraron registros.</h4>
+    {{ '{% endif %}' }}
+
+    {% if 'new' in actions %}
+    <p class="text-left">
+      <a href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-plus"></span> Agregar
+                    </button>
+      </a>
+    </p>  
+
+    {% endif %}
+{{ "{% endblock %}" }}

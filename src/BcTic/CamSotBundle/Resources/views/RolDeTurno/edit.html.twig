@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="#">Configuración</a></li>
+  <li><a href="{{ path('turnos_calendar') }}">Calendario de turnos</a></li>
+  <li class="active">Editar</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+  <h3>Editar Rol de turno</h3>
+    
+    {{ form_start(edit_form) }}
+
+      {{ form_row(edit_form.turno) }}
+      {{ form_row(edit_form.fecha) }}
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label required">Roles</label>
+        <div class="col-sm-9">
+          {% for rol in edit_form.rolesEnTurno %}
+            <div class="row">
+              <div class="col-sm-6">
+                {{ form_row(rol.rol) }}
+              </div>
+              <div class="col-sm-6">
+                {{ form_row(rol.registro) }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    {{ form_end(edit_form) }}    
+
+        <p class="text-left">
+          <a href="{{ path('roles_de_turno_delete', { 'id': entity.id, 'token': csrf.generateCsrfToken('entity' ~ entity.id) }) }}" class="confirm">
+            <button type="button" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-trash"></span> Borrar
+            </button>
+          </a>
+          <a href="{{ path('turnos_calendar') }}">
+            <button type="button" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-th-list"></span> Volver
+            </button>
+          </a>
+        </p>
+{% endblock %}
+

@@ -1,0 +1,126 @@
+{% extends '::base.html.twig' %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="#">Creación & asignación</a></li>
+  <li><a href="{{ path('movil_new_index') }}">Ver móviles/cuadrillas importados</a></li>
+  <li class="active">Ver</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+    <h3>Ver móvil {{ valor }}</h3>
+
+    <!-- TABS -->  
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active"><a href="#main" role="tab" data-toggle="tab">Cuadrillas por evento</a></li>
+    </ul>  
+  
+    <div class="tab-content">
+      <div class="tab-pane active" id="main">
+        <div id="results" class="container" style="width:98%; padding-top:20px;">
+          
+        </div>
+      </div>
+    </div>   
+
+    <br/>
+
+    <p class="text-left">
+    <a href="{{ path('movil_new_index') }}">
+      <button type="button" class="btn btn-default btn-xs">
+        <span class="glyphicon glyphicon-th-list"></span> Volver
+      </button>
+    </a>
+    </p>{% endblock %}
+
+
+{% block js %}
+
+  var page = 1;
+  var url = "{{ path('moviles_eventos_search') }}";
+
+  function updateData(page){
+
+    $.ajax({
+
+      url: url,
+      type: 'POST',
+      dataType: 'json',
+      data: { 'valor': '{{ valor }}',
+              'page': page },
+      success: function(data) {
+        updateResults(data.results, Number(data.page));
+        if (Number(data.page) == 1) { 
+          $("a#previous").parent().addClass("disabled"); 
+        } else {
+          $('#previous').bind('click', function (e) {
+            updateData(data.page - 1);
+          });
+        }
+
+
+        if ( Number(data.results.length) < 1 ) { 
+          $("a#next").parent().addClass("disabled"); 
+        } else {
+          $('#next').bind('click', function (e) {
+            updateData(data.page + 1);
+          }); 
+        }  
+
+      }
+
+    });
+
+  }
+
+  function updateResults(data, pagina) {
+    if (data.length == 0 ) {
+      $('#results').html('<h4>No se encontraron registros.</h4>');
+      return;
+    }
+    //Muestro la tabla de datos:
+    var html = '<table class="records_list table table-striped">\
+                <tbody>';
+
+    
+    //Itero
+    $.each( data, function() {
+      html = html + '<tr>\
+                <td>' + this.valor + '</td> \
+                <td>\
+                  <a href="/eventos/show/' + this.valor + '">\
+                    <button type="button" class="btn btn-default btn-xs">\
+                      <span class="glyphicon glyphicon-zoom-in"></span> Ver\
+                    </button>\
+                  </a>\
+                </td>\
+            </tr>';
+    });
+
+    html = html + '</tbody>';   
+
+    //Paginador:
+    html = html + '<tfoot>\
+            <tr>\
+              <td colspan="9" style="text-align: center;">\
+                <ul class="pagination">\
+                  <li><a id="previous" href="javascript:void(0);">{{ 'Anterior' | trans }}</a></li>\
+                  <li class="active"><a href="#">' + pagina + '</a><li>\
+                  <li><a id="next" href="javascript:void(0);">{{ 'Siguiente' | trans }}</a></li>\
+                </ul>\
+              </td>\
+            </tr>\
+          </tfoot>\
+          </table>';
+
+    $('#results').html(html);
+  }
+
+  updateData(page);
+
+
+{% endblock %}
+

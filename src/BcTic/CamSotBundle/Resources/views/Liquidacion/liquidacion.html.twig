@@ -1,0 +1,12 @@
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    Descarga <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="{{ path('liquidacion_download', { 'id': entity.id, 'tipo' : 'red' }) }}">Liquidación red</a></li></a>
+    <li><a href="{{ path('liquidacion_download', { 'id': entity.id, 'tipo' : 'domicilio' }) }}">Liquidación domicilio</a></li></a>
+    <li><a href="{{ path('liquidacion_download', { 'id': entity.id, 'tipo' : 'moto' }) }}">Liquidación moto</a></li></a>
+    <li><a href="{{ path('liquidacion_download', { 'id': entity.id, 'tipo' : 'corte_y_reposicion' }) }}">Liquidación corte y reposición</a></li></a>
+  </ul>
+</div>

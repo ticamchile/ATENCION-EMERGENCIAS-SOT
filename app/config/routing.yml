@@ -1,0 +1,8 @@
+bc_tic_cam_sot:
+    resource: "@BcTicCamSotBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+bc_tic_victoria:
+    resource: "@BcTicVictoriaBundle/Resources/config/routing.yml"     
+

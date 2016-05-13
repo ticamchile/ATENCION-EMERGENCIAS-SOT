@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="#">Creación & asignación</a></li>
+  <li class="active">Ver móviles/cuadrillas importados</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+  {% include 'BcTicCamSotBundle:CuadrillaDeEvento:index.html.twig' %}
+{% endblock %}  
+
+{% block js %}
+  {% include 'BcTicCamSotBundle:CuadrillaDeEvento:index.js.twig' %}
+
+  $(function() {
+
+   
+  });
+{% endblock %}

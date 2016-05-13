@@ -1,0 +1,91 @@
+
+  var page = 1;
+  var url = "";
+
+  function updateData(page){
+
+    $.ajax({
+
+      url: url,
+      type: 'POST',
+      dataType: 'json',
+      data: { 'valor': $('#bctic_camsotbundle_cuadrilladeevento_valor').val(), 
+              'page': page },
+      success: function(data) {
+        updateResults(data.results, Number(data.page));
+        if (Number(data.page) == 1) { 
+          $("a#previous").parent().addClass("disabled"); 
+        } else {
+          $('#previous').bind('click', function (e) {
+            updateData(data.page - 1);
+          });
+        }
+
+        if ( Number(data.length) < 30 ) { 
+          $("a#next").parent().addClass("disabled"); 
+        } else {
+          $('#next').bind('click', function (e) {
+            updateData(data.page + 1);
+          }); 
+        }  
+
+      }
+
+    });
+
+  }
+
+  $('#filter form').submit(function(e) {
+    url = e.target.action;
+    updateData(page); 
+    e.preventDefault(); 
+  });
+
+  function updateResults(data, pagina) {
+    if (data.length == 0 ) {
+      $('#results').html('<h4>No se encontraron registros.</h4>');
+      return;
+    }
+    //Muestro la tabla de datos:
+    var html = '<table class="records_list table table-striped">\
+                  <thead>\
+                    <tr>\
+                      <th>Código de móvil</th>\
+                      <th class="actions">Opciones</th>\
+                    </tr>\
+                  </thead>\
+                <tbody>';
+
+    
+    //Itero
+    $.each( data, function() {
+      html = html + '<tr>\
+                <td>' + this.valor + '</td> \
+                <td>\
+                  <a href="/movil/show/' + this.valor + '">\
+                    <button type="button" class="btn btn-default btn-xs">\
+                      <span class="glyphicon glyphicon-zoom-in"></span> Ver\
+                    </button>\
+                  </a>\
+                </td>\
+            </tr>';
+    });
+
+    html = html + '</tbody>';   
+
+    //Paginador:
+    html = html + '<tfoot>\
+            <tr>\
+              <td colspan="9" style="text-align: center;">\
+                <ul class="pagination">\
+                  <li><a id="previous" href="javascript:void(0);">{{ 'Anterior' | trans }}</a></li>\
+                  <li class="active"><a href="#">' + pagina + '</a><li>\
+                  <li><a id="next" href="javascript:void(0);">{{ 'Siguiente' | trans }}</a></li>\
+                </ul>\
+              </td>\
+            </tr>\
+          </tfoot>\
+          </table>';
+
+    $('#results').html(html);
+  }

@@ -1,0 +1,80 @@
+{% extends '::base.html.twig' %}
+
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+  <li><a href="{{ path('default_index') }}">Inicio</a></li>
+  <li><a href="{{ path('liquidacion_index') }}">Liquidacion</a></li>
+  <li class="active">Ver</li>
+</ol>
+{% endblock %}
+
+{% block body -%}
+    <h3>Ver liquidación</h3>
+
+    <table class="records_properties table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ entity.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Cierre</th>
+                <td>{{ entity.archivoDeCierre }}</td>
+            </tr>            
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status | trans}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="text-left">
+
+
+                  {% if entity.status == 'DONE' %}
+                  <a href="{{ path('liquidacion_download', { 'id': entity.id }) }}">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-download"></span> Archivo
+                    </button>
+                  </a>
+                  {% endif %}
+
+                  {% if entity.status == 'ERROR' %}
+                  <a href="{{ path('liquidacion_download', { 'id': entity.id }) }}">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-download"></span> Archivo
+                    </button>
+                  </a>
+                  {% endif %}    
+
+                  {% if entity.status == 'HAS_NO_CONFORMITIES' %}
+                  <a href="{{ path('liquidacion_download', { 'id': entity.id }) }}">
+                    <button type="button" class="btn btn-default btn-xs">
+                      <span class="glyphicon glyphicon-download"></span> Archivo
+                    </button>
+                  </a>
+                  {% endif %}    
+
+
+
+      <a href="{{ path('liquidacion_delete', { 'id': entity.id, 'token': csrf.generateCsrfToken('entity' ~ entity.id) }) }}" class="confirm">
+        <button type="button" class="btn btn-default btn-xs">
+          <span class="glyphicon glyphicon-trash"></span> Borrar
+        </button>
+      </a>
+                  
+    </p>
+
+
+    <p class="text-left">
+    <a href="{{ path('liquidacion_index') }}">
+      <button type="button" class="btn btn-default btn-xs">
+        <span class="glyphicon glyphicon-th-list"></span> Volver
+      </button>
+    </a>
+    </p>{% endblock %}

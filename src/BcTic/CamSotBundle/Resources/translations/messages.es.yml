@@ -1,0 +1,206 @@
+DIA_1: Lunes
+DIA_2: Martes
+DIA_3: Miércoles
+DIA_4: Jueves
+DIA_5: Viernes
+DIA_6: Sábado
+DIA_7: Domingo
+COLOR_DOMICILIO: '#005EAD'
+COLOR_RED: '#FF4C00'
+COLOR_LIBRE: '#00CC00'
+COLOR_LIBRE_RED: '#00CC00'
+COLOR_LIBRE_DOMICILIO: '#00CC00'
+COLOR_TRASLAPO: '#FFBF00'
+COLOR_LICENCIA_MEDICA: '#8904B1'
+COLOR_LICENCIA_MEDICA_RED: '#8904B1'
+COLOR_LICENCIA_MEDICA_DOMICILIO: '#8904B1'
+PENDING: PENDIENTE DE PROCESAR
+OK: IMPORTADO OK
+ERROR: ERROR
+NEW: NUEVO
+PROCESSING: PROCESANDO
+DONE: COMPLETO
+HAS_NO_CONFORMITIES: CONTIENE NO CONFORMIDADES
+propiedad_de_evento_0: Nombre
+propiedad_de_evento_1: Estado
+propiedad_de_evento_2: Tipo
+propiedad_de_evento_3: Descripción tipo
+propiedad_de_evento_4: Cód. persona cierre
+propiedad_de_evento_5: Despachador que cerró
+propiedad_de_evento_6: Zona
+propiedad_de_evento_7: Comuna
+propiedad_de_evento_8: Fecha/Hora de inicio
+propiedad_de_evento_9: Fecha/Hora de arribo
+propiedad_de_evento_10: Fecha/Hora de Fin
+propiedad_de_evento_11: Causa
+propiedad_de_evento_12: Descripción Causa
+propiedad_de_evento_13: Equipo
+propiedad_de_evento_14: Tipo de equipo
+propiedad_de_evento_15: Descripción tipo de equipo
+propiedad_de_evento_16: Subestación
+propiedad_de_evento_17: Alimentador
+propiedad_de_evento_18: Núm. pos. traf.
+propiedad_de_evento_19: Alias trafo
+propiedad_de_evento_20: Capacidad trafo
+propiedad_de_evento_21: RDU
+propiedad_de_evento_22: Pedido servicio
+propiedad_de_evento_23: Monto RDU
+propiedad_de_evento_24: Número medidor
+propiedad_de_evento_25: Intervino PDA
+propiedad_de_evento_26: PDA Fecha contacto estimado
+propiedad_de_evento_27: PDA Fecha fecha estimado
+propiedad_de_evento_28: Código causa
+propiedad_de_evento_29: PDA Fecha contacto real
+propiedad_de_evento_30: PDA Fecha término real
+propiedad_de_evento_31: Estado de finalización
+propiedad_de_evento_32: Cumplimentado
+propiedad_de_evento_33: Desglose cancelado
+propiedad_de_evento_34: Observaciones cierre
+propiedad_de_evento_35: Observaciones cumplimentación
+no_conformidad_propiedad_de_evento_0: Nombre
+no_conformidad_propiedad_de_evento_1: Estado
+no_conformidad_propiedad_de_evento_2: Tipo
+no_conformidad_propiedad_de_evento_3: Descripción tipo
+no_conformidad_propiedad_de_evento_4: Cód. persona cierre
+no_conformidad_propiedad_de_evento_5: Despachador que cerró
+no_conformidad_propiedad_de_evento_6: Zona
+no_conformidad_propiedad_de_evento_7: Comuna
+no_conformidad_propiedad_de_evento_8: Fecha/Hora de inicio
+no_conformidad_propiedad_de_evento_9: Fecha/Hora de arribo
+no_conformidad_propiedad_de_evento_10: Fecha/Hora de Fin
+no_conformidad_propiedad_de_evento_11: Causa
+no_conformidad_propiedad_de_evento_12: Descripción Causa
+no_conformidad_propiedad_de_evento_13: Equipo
+no_conformidad_propiedad_de_evento_14: Tipo de equipo
+no_conformidad_propiedad_de_evento_15: Descripción tipo de equipo
+no_conformidad_propiedad_de_evento_16: Subestación
+no_conformidad_propiedad_de_evento_17: Alimentador
+no_conformidad_propiedad_de_evento_18: Núm. pos. traf.
+no_conformidad_propiedad_de_evento_19: Alias trafo
+no_conformidad_propiedad_de_evento_20: Capacidad trafo
+no_conformidad_propiedad_de_evento_21: RDU
+no_conformidad_propiedad_de_evento_22: Pedido servicio
+no_conformidad_propiedad_de_evento_23: Monto RDU
+no_conformidad_propiedad_de_evento_24: Número medidor
+no_conformidad_propiedad_de_evento_25: Intervino PDA
+no_conformidad_propiedad_de_evento_26: PDA Fecha contacto estimado
+no_conformidad_propiedad_de_evento_27: PDA Fecha fecha estimado
+no_conformidad_propiedad_de_evento_28: Código causa
+no_conformidad_propiedad_de_evento_29: PDA Fecha contacto real
+no_conformidad_propiedad_de_evento_30: PDA Fecha término real
+no_conformidad_propiedad_de_evento_31: Estado de finalización
+no_conformidad_propiedad_de_evento_32: Cumplimentado
+no_conformidad_propiedad_de_evento_33: Desglose cancelado
+no_conformidad_propiedad_de_evento_34: Observaciones cierre
+no_conformidad_propiedad_de_evento_35: Observaciones cumplimentación
+causas_de_evento_1: Elemento ubicado
+causas_de_evento_2: Elemento responsable
+causas_de_evento_4: Ámbito
+causas_de_evento_5: Descripción ámbito
+causas_de_evento_6: Condición
+causas_de_evento_7: Descripción condición
+causas_de_evento_8: Observaciones
+no_conformidad_causas_de_evento_1: Elemento ubicado
+no_conformidad_causas_de_evento_2: Elemento responsable
+no_conformidad_causas_de_evento_4: Ámbito
+no_conformidad_causas_de_evento_6: Condición
+no_conformidad_causas_de_evento_8: Observaciones
+promesa_de_evento_0: Empresa/Colaborador
+promesa_de_evento_1: Código móvil
+promesa_de_evento_2: Tipo de móvil
+promesa_de_evento_4: Falla reportada
+promesa_de_evento_5: Causa
+promesa_de_evento_6: Estado
+promesa_de_evento_7: Inicio
+promesa_de_evento_8: Llegada (Notificación)
+promesa_de_evento_9: Asignación
+promesa_de_evento_10: Aceptación
+promesa_de_evento_11: En ruta
+promesa_de_evento_12: Arribo
+promesa_de_evento_13: Liberada
+promesa_de_evento_14: Repromesa
+promesa_de_evento_15: Promesa(min)
+promesa_de_evento_16: Repromesa(min)
+promesa_de_evento_17: T.asignacion(min)
+promesa_de_evento_18: T.arribo(min)
+promesa_de_evento_19: Cumpl.promesa
+promesa_de_evento_20: Cumpl.legal
+promesa_de_evento_21: Cumpl.tiempo
+no_conformidad_promesa_de_evento_0: Empresa/Colaborador
+no_conformidad_promesa_de_evento_1: Código móvil
+no_conformidad_promesa_de_evento_2: Tipo de móvil
+no_conformidad_promesa_de_evento_4: Falla reportada
+no_conformidad_promesa_de_evento_5: Causa
+no_conformidad_promesa_de_evento_6: Estado
+no_conformidad_promesa_de_evento_7: Inicio
+no_conformidad_promesa_de_evento_8: Llegada (Notificación)
+no_conformidad_promesa_de_evento_9: Asignación
+no_conformidad_promesa_de_evento_10: Aceptación
+no_conformidad_promesa_de_evento_11: En ruta
+no_conformidad_promesa_de_evento_12: Arribo
+no_conformidad_promesa_de_evento_13: Liberada
+no_conformidad_promesa_de_evento_14: Repromesa
+no_conformidad_promesa_de_evento_15: Promesa(min)
+no_conformidad_promesa_de_evento_16: Repromesa(min)
+no_conformidad_promesa_de_evento_17: T.asignacion(min)
+no_conformidad_promesa_de_evento_18: T.arribo(min)
+no_conformidad_promesa_de_evento_19: Cumpl.promesa
+no_conformidad_promesa_de_evento_20: Cumpl.legal
+no_conformidad_promesa_de_evento_21: Cumpl.tiempo
+cuadrilla_de_evento_0: Evento
+cuadrilla_de_evento_1: No hay marca de recurso insuficiente
+cuadrilla_de_evento_2: Cuadrilla des-asignada
+cuadrilla_de_evento_3: Cód. Móvil
+cuadrilla_de_evento_4: Tipo Móvil
+cuadrilla_de_evento_5: Empresa
+cuadrilla_de_evento_6: Cód. supervisor
+cuadrilla_de_evento_7: Supervisor
+cuadrilla_de_evento_8: Cód. Ayudante 1
+cuadrilla_de_evento_9: Ayudante 1
+cuadrilla_de_evento_10: Cód. Ayudante 2
+cuadrilla_de_evento_11: Ayudante 2
+cuadrilla_de_evento_12: Fecha de despacho
+cuadrilla_de_evento_13: Cód. persona que despacha
+cuadrilla_de_evento_14: Despachado por
+cuadrilla_de_evento_15: Fecha aceptación
+cuadrilla_de_evento_16: Cód. persona que acepta
+cuadrilla_de_evento_17: Aceptado por
+cuadrilla_de_evento_18: Fecha ruta
+cuadrilla_de_evento_19: Cód. persona que en-ruta
+cuadrilla_de_evento_20: Person que en-ruta
+cuadrilla_de_evento_21: Fecha arribo
+cuadrilla_de_evento_22: Cód. persona que arribo
+cuadrilla_de_evento_23: Persona que arribo
+cuadrilla_de_evento_24: Fecha liberación
+cuadrilla_de_evento_25: Cód. persona que libera
+cuadrilla_de_evento_26: Liberado por
+no_conformidad_cuadrilla_de_evento_0: Evento
+no_conformidad_cuadrilla_de_evento_1: Marca recurso insuficiente
+no_conformidad_cuadrilla_de_evento_2: Cuadrilla des-asignada
+no_conformidad_cuadrilla_de_evento_3: Cód. Móvil
+no_conformidad_cuadrilla_de_evento_4: Tipo Móvil
+no_conformidad_cuadrilla_de_evento_5: Empresa
+no_conformidad_cuadrilla_de_evento_6: Cód. supervisor
+no_conformidad_cuadrilla_de_evento_7: Supervisor
+no_conformidad_cuadrilla_de_evento_8: Cód. Ayudante 1
+no_conformidad_cuadrilla_de_evento_9: Ayudante 1
+no_conformidad_cuadrilla_de_evento_10: Cód. Ayudante 2
+no_conformidad_cuadrilla_de_evento_11: Ayudante 2
+no_conformidad_cuadrilla_de_evento_12: No existe fecha de despacho
+no_conformidad_cuadrilla_de_evento_13: Cód. persona que despacha
+no_conformidad_cuadrilla_de_evento_14: Despachado por
+no_conformidad_cuadrilla_de_evento_15: Fecha aceptación
+no_conformidad_cuadrilla_de_evento_16: Cód. persona que acepta
+no_conformidad_cuadrilla_de_evento_17: Aceptado por
+no_conformidad_cuadrilla_de_evento_18: Fecha ruta
+no_conformidad_cuadrilla_de_evento_19: Cód. persona que en-ruta
+no_conformidad_cuadrilla_de_evento_20: Person que en-ruta
+no_conformidad_cuadrilla_de_evento_21: Fecha arribo
+no_conformidad_cuadrilla_de_evento_22: Cód. persona que arribo
+no_conformidad_cuadrilla_de_evento_23: Persona que arribo
+no_conformidad_cuadrilla_de_evento_24: Fecha liberación
+no_conformidad_cuadrilla_de_evento_25: Cód. persona que libera
+no_conformidad_cuadrilla_de_evento_26: Liberado por
+
+
+

@@ -1,0 +1,12 @@
+{% block columna_csv_widget %}
+    {% spaceless %}
+            <ul class="list-unstyled">
+            {% for child in form %}
+                <li>
+                    {{ form_widget(form) }}
+                </li>
+            {% endfor %}
+            </ul>
+    {% endspaceless %}
+{% endblock %}
+

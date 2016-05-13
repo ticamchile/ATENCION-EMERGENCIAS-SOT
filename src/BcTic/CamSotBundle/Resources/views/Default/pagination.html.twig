@@ -1,0 +1,7 @@
+    <div class="container" style="text-align: center; width:50%;">
+    <ul class="pagination">
+      <li {% if page < 2 %}class="disabled"{% endif %}><a href="{% if page < 2 %}javascript:void();{% else %}{{ path_previous }}{% endif %}">Anterior</a></li>
+      <li class="active"><a href="javascript:void()">{{ page }}</a><li>
+      <li {% if entities | length < 10 %}class="disabled"{% endif %}><a href="{% if entities | length < 10 %}javascript:void();{% else %}{{ path_next }}{% endif %}">Siguiente</a></li>
+    </ul>
+    </div>

@@ -1,0 +1,62 @@
+{% extends 'BcTicVictoriaBundle:Default:base.html.twig' %}
+
+{% set copyright = 'Gestión de Eventos & liquidación y Rol de turnos – Servicio de Emergencias SOT CAM.' %}
+{% set version = 'Revisión #29.2' %}
+{% set home = 'SSEE SOT' %}
+{% set logo = 'images/logo.jpg' %}
+
+{% block stylesheets -%}
+  {{ parent() }}
+  <link rel="stylesheet" href="/css/style.css">
+{% endblock %}
+
+{% block menu %}
+
+{% if is_granted('ROLE_USER') %}
+<ul class="nav navbar-nav">
+
+  <li class="dropdown" id="paso_1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="badge">1</span>&nbsp;Creación & asignación&nbsp;<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li id="orden_de_trabajo"><a href="{{ path('eventos_new_index') }}">Ver eventos importados</a></li>
+            <li id="orden_de_trabajo_movil"><a href="{{ path('movil_new_index') }}">Ver móviles/cuadrillas importados</a></li>
+            <li id="orden_de_trabajo_importar"><a href="{{ path('archivos_de_eventos_index') }}">Importar</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" id="paso_2">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="badge">2</span>&nbsp;Cierre&nbsp;<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li id="archivo_de_cierre"><a href="{{ path('archivodecierre_index') }}">Ver cierres</a></li>
+            <li id="historial" ><a href="{{ path('historiales_index') }}">No conformidades</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" id="paso_3">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="badge">3</span>&nbsp;Liquidación&nbsp;<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li id="precio" ><a href="{{ path('precios_index') }}">Ver precios</a></li>
+            <li id="cierre"><a href="{{ path('liquidacion_index') }}">Ver liquidaciones</a></li>
+          </ul>
+        </li>
+      
+</ul>   
+{% endif %}
+
+{% if is_granted('ROLE_ADMIN') %}
+      <ul class="nav navbar-nav">
+        <li class="dropdown" id="menu_configuracion">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuración<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li id="user" ><a href="{{ path('user_index') }}">Usuarios</a></li>
+            <li class="divider"></li>
+            <li id="personal" ><a href="{{ path('registro_index') }}">Registro</a></li>
+            <li class="divider"></li>
+            <li id="turnos_de_colaboradores_calendario" ><a href="{{ path('turnos_calendar') }}">Calendario de turnos</a></li>
+            <li id="periodos" ><a href="{{ path('periodos_index') }}">Periodos de turnos</a></li>
+            <li id="turnos_de_colaboradores" ><a href="{{ path('turnos_index') }}">Configuración de turnos</a></li>
+          </ul>
+        </li>
+
+      </ul>
+{% endif %}      
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends '::base-pdf.html.twig' %}
+{% block body %}
+<div class="container-fluid">
+{% for key,turno in data %}
+  {% include 'BcTicCamSotBundle:RolDeTurno:calendar-show.html.twig' with {'data': turno, 'fecha_desde': fecha_desde } %}
+{% endfor %}
+</div>
+{% endblock %}

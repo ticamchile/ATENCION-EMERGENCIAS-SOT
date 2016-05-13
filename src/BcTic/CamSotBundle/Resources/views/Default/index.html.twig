@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<div class="jumbotron">
+  <h2>Hola {{ app.user.name }}</h2>
+  <p>Bienvenido al sistema SSEE-SOT. Este sistema permite gestionar los <b>eventos</b> desde su creación y asignación hasta la facturación & liquidación.</p>
+  <br/>
+  <p>Usa el menú superior numerado desde el 1 al 4 para que puedas gestionar la vida de un <b>evento</b> y para ver las configuraciones del sistema o el calendario de turnos usa la sección <b>Configuración</b> del menú.</p>
+  <br/>
+  <p><a href="{{ path('archivos_de_eventos_index') }}" class="btn btn-primary btn-lg" role="button">Ver archivos importados</a></p>
+</div>
+
+{% endblock %}
